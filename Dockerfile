@@ -39,13 +39,10 @@ RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
 
 # add scripts
 ADD /scripts /data/
-RUN chmod 755 /data/startmoloch.sh
+RUN chmod 755 /data/*.sh
 
 VOLUME ["/data/pcap", "/data/moloch/logs"]
 EXPOSE 8005
 WORKDIR /data/moloch
 
 ENTRYPOINT ["/data/startmoloch.sh"]
-  
-
-
