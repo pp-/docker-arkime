@@ -1,12 +1,9 @@
 FROM ubuntu:18.04
 MAINTAINER Mathieu Monin - https://github.com/mathiem
 
+# Install dependencies that are needed, but not set in the moloch.deb file
 RUN apt-get -qq update && \
-apt-get -yq install software-properties-common && \
-add-apt-repository ppa:openjdk-r/ppa && \
-apt-get -qq update && \
-apt-get install -yq  wget curl libpcre3-dev uuid-dev libmagic-dev pkg-config g++ flex bison zlib1g-dev libffi-dev gettext libgeoip-dev make libjson-perl libbz2-dev libwww-perl libpng-dev xz-utils libffi-dev python git openjdk-7-jdk libssl-dev libyaml-dev ethtool && \
-rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    apt-get install -yq curl libmagic-dev wget
 
 # Declare args
 ARG MOLOCH_VERSION=2.0.1-1_amd64
@@ -30,9 +27,15 @@ ENV MOLOCHDIR "/data/moloch"
 ENV CAPTURE $CAPTURE
 ENV VIEWER $VIEWER
 
-RUN mkdir -p /data
-RUN cd /data && curl -C - -O "https://files.molo.ch/builds/ubuntu-"$UBUNTU_VERSION"/moloch_"$MOLOCH_VERSION".deb"
-RUN cd /data && dpkg -i "moloch_"$MOLOCH_VERSION".deb"
+# Install Moloch
+RUN mkdir -p /data && \
+    cd /data && \
+    curl -C - -O "https://files.molo.ch/builds/ubuntu-"$UBUNTU_VERSION"/moloch_"$MOLOCH_VERSION".deb" && \
+    dpkg -i "moloch_"$MOLOCH_VERSION".deb" || true && \
+    apt-get install -yqf
+# clean up
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
+    rm /data/"moloch_"$MOLOCH_VERSION".deb"
 
 # add scripts
 ADD /scripts /data/
