@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 MAINTAINER Mathieu Monin - https://github.com/mathiem
 
 RUN apt-get -qq update && \
@@ -9,8 +9,8 @@ apt-get install -yq  wget curl libpcre3-dev uuid-dev libmagic-dev pkg-config g++
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Declare args
-ARG MOLOCH_VERSION=0.50.0-1_amd64
-ARG UBUNTU_VERSION=16.04
+ARG MOLOCH_VERSION=2.0.1-1_amd64
+ARG UBUNTU_VERSION=18.04
 ARG ES_HOST=elasticsearch
 ARG ES_PORT=9200
 ARG MOLOCH_PASSWORD=admin
