@@ -12,7 +12,7 @@ ARG ES_HOST=elasticsearch
 ARG ES_PORT=9200
 ARG MOLOCH_PASSWORD=admin
 ARG MOLOCH_INTERFACE=eth0
-ARG CAPTURE=on
+ARG CAPTURE=off
 ARG VIEWER=on
 
 # Declare envs vars for each arg
