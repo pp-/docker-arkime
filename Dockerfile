@@ -6,7 +6,7 @@ RUN apt-get -qq update && \
     apt-get install -yq curl libmagic-dev wget
 
 # Declare args
-ARG MOLOCH_VERSION=2.0.1
+ARG MOLOCH_VERSION=2.1.0
 ARG UBUNTU_VERSION=18.04
 ARG UBUNTU_MOLOCH_VERSION=$MOLOCH_VERSION-1_amd64
 ARG ES_HOST=elasticsearch
