@@ -8,14 +8,14 @@ do
 done
 echo
 
-if [ ! -f /data/initialized ]; then
-    echo $MOLOCH_VERSION > /data/initialized
+if [ ! -f /data/moloch/.initialized ]; then
+    echo $MOLOCH_VERSION > /data/moloch/.initialized
     /data/moloch/bin/Configure
     echo INIT | /data/moloch/db/db.pl http://$ES_HOST:$ES_PORT init
     /data/moloch/bin/moloch_add_user.sh admin "Admin User" $MOLOCH_ADMIN_PASSWORD --admin
 else
     # possible update
-    read old_ver < /data/initialized
+    read old_ver < /data/moloch/.initialized
     # detect the newer version ($MOLOCH_VERSION contains the actual used version)
     newer_ver=`echo "$old_ver\n$MOLOCH_VERSION" | sort -rV | head -n 1`
     if [ "$MOLOCH_VERSION" = "$newer_ver" ]; then
