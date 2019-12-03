@@ -34,7 +34,9 @@ RUN mkdir -p /data && \
     cd /data && \
     curl -C - -O "https://files.molo.ch/builds/ubuntu-"$UBUNTU_VERSION"/moloch_"$UBUNTU_MOLOCH_VERSION".deb" && \
     dpkg -i "moloch_"$UBUNTU_MOLOCH_VERSION".deb" || true && \
-    apt-get install -yqf
+    apt-get install -yqf && \
+    mv /data/moloch/etc /data/config && \
+    ln -s /data/config /data/moloch/etc
 # clean up
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
     rm /data/"moloch_"$UBUNTU_MOLOCH_VERSION".deb"
@@ -43,7 +45,7 @@ RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
 ADD /scripts /data/
 RUN chmod 755 /data/*.sh
 
-VOLUME ["/data/pcap", "/data/moloch/etc"]
+VOLUME ["/data/pcap", "/data/config"]
 EXPOSE 8005
 WORKDIR /data/moloch
 
