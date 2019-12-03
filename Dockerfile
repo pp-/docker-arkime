@@ -43,7 +43,7 @@ RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
 ADD /scripts /data/
 RUN chmod 755 /data/*.sh
 
-VOLUME ["/data/pcap", "/data/moloch/logs"]
+VOLUME ["/data/pcap", "/data/moloch"]
 EXPOSE 8005
 WORKDIR /data/moloch
 
