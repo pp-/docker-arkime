@@ -6,8 +6,9 @@ RUN apt-get -qq update && \
     apt-get install -yq curl libmagic-dev wget
 
 # Declare args
-ARG MOLOCH_VERSION=2.0.1-1_amd64
+ARG MOLOCH_VERSION=2.0.1
 ARG UBUNTU_VERSION=18.04
+ARG UBUNTU_MOLOCH_VERSION=$MOLOCH_VERSION-1_amd64
 ARG ES_HOST=elasticsearch
 ARG ES_PORT=9200
 ARG MOLOCH_PASSWORD=admin
@@ -16,6 +17,7 @@ ARG CAPTURE=off
 ARG VIEWER=on
 
 # Declare envs vars for each arg
+ENV MOLOCH_VERSION $MOLOCH_VERSION
 ENV ES_HOST $ES_HOST
 ENV ES_PORT $ES_PORT
 ENV MOLOCH_LOCALELASTICSEARCH no
@@ -30,12 +32,12 @@ ENV VIEWER $VIEWER
 # Install Moloch
 RUN mkdir -p /data && \
     cd /data && \
-    curl -C - -O "https://files.molo.ch/builds/ubuntu-"$UBUNTU_VERSION"/moloch_"$MOLOCH_VERSION".deb" && \
-    dpkg -i "moloch_"$MOLOCH_VERSION".deb" || true && \
+    curl -C - -O "https://files.molo.ch/builds/ubuntu-"$UBUNTU_VERSION"/moloch_"$UBUNTU_MOLOCH_VERSION".deb" && \
+    dpkg -i "moloch_"$UBUNTU_MOLOCH_VERSION".deb" || true && \
     apt-get install -yqf
 # clean up
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
-    rm /data/"moloch_"$MOLOCH_VERSION".deb"
+    rm /data/"moloch_"$UBUNTU_MOLOCH_VERSION".deb"
 
 # add scripts
 ADD /scripts /data/

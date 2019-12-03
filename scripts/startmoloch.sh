@@ -9,10 +9,19 @@ done
 echo
 
 if [ ! -f /data/initialized ]; then
-	touch /data/initialized
+    echo $MOLOCH_VERSION > /data/initialized
     /data/moloch/bin/Configure
-	echo INIT | /data/moloch/db/db.pl http://$ES_HOST:$ES_PORT init
-	/data/moloch/bin/moloch_add_user.sh admin "Admin User" $MOLOCH_ADMIN_PASSWORD --admin
+    echo INIT | /data/moloch/db/db.pl http://$ES_HOST:$ES_PORT init
+    /data/moloch/bin/moloch_add_user.sh admin "Admin User" $MOLOCH_ADMIN_PASSWORD --admin
+else
+    # possible update
+    read old_ver < /data/initialized
+    # detect the newer version ($MOLOCH_VERSION contains the actual used version)
+    newer_ver=`echo "$old_ver\n$MOLOCH_VERSION" | sort -rV | head -n 1`
+    if [ "$MOLOCH_VERSION" = "$newer_ver" ]; then
+        echo "Upgrading ES database..."
+        /data/moloch/db/db.pl http://$ES_HOST:$ES_PORT upgrade
+    fi
 fi
 
 if [ "$CAPTURE" = "on" ]
