@@ -16,9 +16,11 @@ if [ ! -f $MOLOCHDIR/etc/.initialized ]; then
 else
     # possible update
     read old_ver < $MOLOCHDIR/etc/.initialized
-    # detect the newer version ($MOLOCH_VERSION contains the actual used version)
+    # detect the newer version
     newer_ver=`echo -e "$old_ver\n$MOLOCH_VERSION" | sort -rV | head -n 1`
-    if [ "$MOLOCH_VERSION" = "$newer_ver" ]; then
+    # the old version should not be the same as the newer version
+    # otherwise -> upgrade
+    if [ "$old_ver" != "$newer_ver" ]; then
         echo "Upgrading ES database..."
         $MOLOCHDIR/bin/Configure
         echo UPGRADE | $MOLOCHDIR/db/db.pl http://$ES_HOST:$ES_PORT upgrade
