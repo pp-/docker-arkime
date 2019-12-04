@@ -21,7 +21,7 @@ else
     if [ "$MOLOCH_VERSION" = "$newer_ver" ]; then
         echo "Upgrading ES database..."
         $MOLOCHDIR/bin/Configure
-        $MOLOCHDIR/db/db.pl http://$ES_HOST:$ES_PORT upgrade
+        echo UPGRADE | $MOLOCHDIR/db/db.pl http://$ES_HOST:$ES_PORT upgrade
         echo $MOLOCH_VERSION > $MOLOCHDIR/etc/.initialized
     fi
 fi
