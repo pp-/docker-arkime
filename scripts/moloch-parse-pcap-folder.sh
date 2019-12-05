@@ -65,16 +65,34 @@ if [ "$pcapdir_set" = false ]; then
 fi
 
 
+# check if there are *.pcap[0-9]+ files
+# these files will not be processed by moloch-capture -R
+# so rename them
+pcap_part_regex="(.*)\.pcap([0-9]+)"
+
+find $PCAPDIR -type f -name '*.pcap*' | while read file; do
+    if [[ $file =~ $pcap_part_regex ]]; then
+        # ${BASH_REMATCH[1]} is the file name without the extension
+        # ${BASH_REMATCH[2]} is the number after '.pcap'
+        new_file="${BASH_REMATCH[1]}.part${BASH_REMATCH[2]}.pcap"
+
+        # rename the file
+        mv $file $new_file
+    fi
+done
+
+
 # process the tags
 tags_cmd=""
 for t in ${TAG[@]}; do
   tags_cmd="$tags_cmd -t $t"
 done
+# remove leading spaces
+tags_cmd="${tags_cmd## }"
 
 
 # the command string
-CMD_STRING="find $PCAPDIR -name '*.pcap*' -type f -exec $MOLOCHDIR/bin/moloch-capture -c $MOLOCHDIR/etc/config.ini -r '{}'$tags_cmd \;"
+CMD_STRING="$MOLOCHDIR/bin/moloch-capture -c $MOLOCHDIR/etc/config.ini -R $PCAPDIR -s --recursive $tags_cmd"
 
 # execute the command
 eval $CMD_STRING
-
