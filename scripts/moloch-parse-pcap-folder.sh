@@ -85,14 +85,14 @@ done
 # process the tags
 tags_cmd=""
 for t in ${TAG[@]}; do
-  tags_cmd="$tags_cmd -t $t"
+  tags_cmd="$tags_cmd --tag $t"
 done
 # remove leading spaces
 tags_cmd="${tags_cmd## }"
 
 
 # the command string
-CMD_STRING="$MOLOCHDIR/bin/moloch-capture -c $MOLOCHDIR/etc/config.ini -R $PCAPDIR -s --recursive $tags_cmd"
+CMD_STRING="$MOLOCHDIR/bin/moloch-capture --config $MOLOCHDIR/etc/config.ini --node localhost --pcapdir $PCAPDIR --skip --recursive $tags_cmd"
 
 # execute the command
 eval $CMD_STRING
