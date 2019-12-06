@@ -37,7 +37,7 @@ RUN mkdir -p /data && \
     apt-get install -yqf && \
     mv $MOLOCHDIR/etc /data/config && \
     ln -s /data/config $MOLOCHDIR/etc && \
-    mkdir -p $MOLOCHDIR/logs && \
+    ln -s /data/logs $MOLOCHDIR/logs && \
     ln -s /data/pcap $MOLOCHDIR/raw
 # clean up
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
@@ -47,7 +47,7 @@ RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
 ADD /scripts /data/
 RUN chmod 755 /data/*.sh
 
-VOLUME ["/data/pcap", "/data/config"]
+VOLUME ["/data/pcap", "/data/config", "/data/logs"]
 EXPOSE 8005
 WORKDIR $MOLOCHDIR
 
