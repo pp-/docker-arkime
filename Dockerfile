@@ -8,7 +8,7 @@ RUN apt-get -qq update && \
 # Declare args
 ARG MOLOCH_VERSION=2.1.0
 ARG UBUNTU_VERSION=18.04
-ARG UBUNTU_MOLOCH_VERSION=$MOLOCH_VERSION-1_amd64
+ARG MOLOCH_DEB_PACKAGE="moloch_"$MOLOCH_VERSION"-1_amd64.deb"
 ARG ES_HOST=elasticsearch
 ARG ES_PORT=9200
 ARG MOLOCH_PASSWORD=admin
@@ -32,15 +32,15 @@ ENV VIEWER $VIEWER
 # Install Moloch
 RUN mkdir -p /data && \
     cd /data && \
-    curl -C - -O "https://files.molo.ch/builds/ubuntu-"$UBUNTU_VERSION"/moloch_"$UBUNTU_MOLOCH_VERSION".deb" && \
-    dpkg -i "moloch_"$UBUNTU_MOLOCH_VERSION".deb" || true && \
+    curl -C - -O "https://files.molo.ch/builds/ubuntu-"$UBUNTU_VERSION"/"$MOLOCH_DEB_PACKAGE && \
+    dpkg -i $MOLOCH_DEB_PACKAGE || true && \
     apt-get install -yqf && \
-    mv /data/moloch/etc /data/config && \
-    ln -s /data/config /data/moloch/etc && \
-    mkdir -p /data/moloch/logs
+    mv $MOLOCHDIR/etc /data/config && \
+    ln -s /data/config $MOLOCHDIR/etc && \
+    mkdir -p $MOLOCHDIR/logs
 # clean up
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
-    rm /data/"moloch_"$UBUNTU_MOLOCH_VERSION".deb"
+    rm /data/$MOLOCH_DEB_PACKAGE
 
 # add scripts
 ADD /scripts /data/
@@ -48,6 +48,6 @@ RUN chmod 755 /data/*.sh
 
 VOLUME ["/data/pcap", "/data/config"]
 EXPOSE 8005
-WORKDIR /data/moloch
+WORKDIR $MOLOCHDIR
 
 ENTRYPOINT ["/data/startmoloch.sh"]
