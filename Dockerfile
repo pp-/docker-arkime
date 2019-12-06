@@ -36,7 +36,8 @@ RUN mkdir -p /data && \
     dpkg -i "moloch_"$UBUNTU_MOLOCH_VERSION".deb" || true && \
     apt-get install -yqf && \
     mv /data/moloch/etc /data/config && \
-    ln -s /data/config /data/moloch/etc
+    ln -s /data/config /data/moloch/etc && \
+    mkdir -p /data/moloch/logs
 # clean up
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
     rm /data/"moloch_"$UBUNTU_MOLOCH_VERSION".deb"
