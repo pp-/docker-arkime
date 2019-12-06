@@ -37,7 +37,8 @@ RUN mkdir -p /data && \
     apt-get install -yqf && \
     mv $MOLOCHDIR/etc /data/config && \
     ln -s /data/config $MOLOCHDIR/etc && \
-    mkdir -p $MOLOCHDIR/logs
+    mkdir -p $MOLOCHDIR/logs && \
+    ln -s /data/pcap $MOLOCHDIR/raw
 # clean up
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
     rm /data/$MOLOCH_DEB_PACKAGE
