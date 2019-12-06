@@ -3,7 +3,7 @@ MAINTAINER Mathieu Monin - https://github.com/mathiem
 
 # Install dependencies that are needed, but not set in the moloch.deb file
 RUN apt-get -qq update && \
-    apt-get install -yq curl libmagic-dev wget
+    apt-get install -yq curl libmagic-dev wget logrotate
 
 # Declare args
 ARG MOLOCH_VERSION=2.1.0

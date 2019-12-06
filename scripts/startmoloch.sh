@@ -28,6 +28,9 @@ else
     fi
 fi
 
+# start cron daemon for logrotate
+service start logrotate
+
 if [ "$CAPTURE" = "on" ]
 then
     echo "Launch capture..."
