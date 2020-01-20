@@ -29,7 +29,7 @@ else
 fi
 
 # start cron daemon for logrotate
-service logrotate start
+service cron start
 
 if [ "$CAPTURE" = "on" ]
 then
