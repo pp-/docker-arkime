@@ -1,0 +1,17 @@
+diff --git a/viewer/decode.js b/viewer/decode.js
+index 8940409..00bd75d 100644
+--- a/viewer/decode.js
++++ b/viewer/decode.js
+@@ -92,7 +92,11 @@
+     }
+     return callback();
+   case 1:
+-    return self._process(item, callback);
++    try {
++      return self._process(item, callback);
++    } catch (err) {
++      return callback(err);
++    }
+   case 2:
+     return callback(null, item);
+   }
