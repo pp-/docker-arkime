@@ -10,7 +10,7 @@ Use it with elastic search whithout security (x-pack)
 
 | NAME              | DEFAULT VALUE   |  NOTES                                                                   |
 | --------------    | --------------- | ---------------------------------------------------------------------    |
-| MOLOCH_VERSION    | 0.50.0-1_amd64  | According https://molo.ch/#downloads                                     |
+| MOLOCH_VERSION    | 2.2.1-1_amd64   | According https://molo.ch/#downloads                                     |
 | UBUNTU_VERSION    | 16.04           | Like version of ubuntu base container                                    |
 | ES_HOST           | elasticsearch   | If you us docker-compose, you should name your service  `elasticsearch`  |
 | ES_PORT           | 9200            | Elastic search port in elastic search container or exposed in any server |
