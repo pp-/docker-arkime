@@ -49,7 +49,8 @@ ADD /patches $MOLOCHDIR/
 RUN chmod 755 /data/*.sh && \
     /data/apply_patches.sh && \
     rm /data/apply_patches.sh && \
-    apt-get purge -yq patch
+    apt-get purge -yq patch && \
+    apt-get autoremove --purge -yq
 
 VOLUME ["/data/pcap", "/data/config", "/data/logs"]
 EXPOSE 8005
