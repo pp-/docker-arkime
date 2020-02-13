@@ -3,7 +3,7 @@ MAINTAINER Mathieu Monin - https://github.com/mathiem
 
 # Install dependencies that are needed, but not set in the moloch.deb file
 RUN apt-get -qq update && \
-    apt-get install -yq curl libmagic-dev wget logrotate patch
+    apt-get install -yq curl libmagic-dev wget logrotate
 
 # Declare args
 ARG MOLOCH_VERSION=2.2.1
@@ -43,14 +43,9 @@ RUN mkdir -p /data && \
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
     rm /data/$MOLOCH_DEB_PACKAGE
 
-# add scripts and patches (and apply them)
+# add scripts
 ADD /scripts /data/
-ADD /patches $MOLOCHDIR/
-RUN chmod 755 /data/*.sh && \
-    /data/apply_patches.sh && \
-    rm /data/apply_patches.sh && \
-    apt-get purge -yq patch && \
-    apt-get autoremove --purge -yq
+RUN chmod 755 /data/*.sh
 
 VOLUME ["/data/pcap", "/data/config", "/data/logs"]
 EXPOSE 8005
