@@ -1,0 +1,12 @@
+FROM mammo0/docker-moloch:latest
+MAINTAINER Mathieu Monin - https://github.com/mathiem
+
+# Install patch
+RUN apt-get -qq update && \
+    apt-get install -yq patch
+
+# add patches (and apply them)
+ADD /patches $MOLOCHDIR/
+RUN /data/apply_patches.sh && \
+    apt-get purge -yq patch && \
+    apt-get autoremove --purge -yq
