@@ -3,5 +3,8 @@
 # do this only if on 'latest' build
 if [ "$DOCKER_TAG" == "latest" ]; then
     # trigger 'patched' build
-    curl -H "Content-Type: application/json" --data '{"docker_tag": "patched"}' -X POST https://hub.docker.com/api/build/v1/source/2afd0916-e57a-421b-9702-93ec9723b10e/trigger/$TRIGGER_SECRET/call/
+    curl --silent --output /dev/null \
+         -H "Content-Type: application/json" \
+         --data '{"docker_tag": "patched"}' \
+         -X POST https://hub.docker.com/api/build/v1/source/2afd0916-e57a-421b-9702-93ec9723b10e/trigger/$TRIGGER_SECRET/call/
 fi
