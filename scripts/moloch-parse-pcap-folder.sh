@@ -92,7 +92,7 @@ tags_cmd="${tags_cmd## }"
 
 
 # the command string
-CMD_STRING="$MOLOCHDIR/bin/moloch-capture --config $MOLOCHDIR/etc/config.ini --node localhost --pcapdir $PCAPDIR --skip --recursive $tags_cmd"
+CMD_STRING="$MOLOCHDIR/bin/moloch-capture --config $MOLOCHDIR/etc/config.ini --host $MOLOCH_HOSTNAME --pcapdir $PCAPDIR --skip --recursive $tags_cmd"
 
 # execute the command
 eval $CMD_STRING

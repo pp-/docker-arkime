@@ -37,10 +37,10 @@ then
     if [ "$VIEWER" = "on" ]
     then
         # Background execution
-        exec $MOLOCHDIR/bin/moloch-capture >> $MOLOCHDIR/logs/capture.log 2>&1 &
+        exec $MOLOCHDIR/bin/moloch-capture --config $MOLOCHDIR/etc/config.ini --host $MOLOCH_HOSTNAME >> $MOLOCHDIR/logs/capture.log 2>&1 &
     else
         # If only capture, foreground execution
-        exec $MOLOCHDIR/bin/moloch-capture >> $MOLOCHDIR/logs/capture.log 2>&1
+        exec $MOLOCHDIR/bin/moloch-capture --config $MOLOCHDIR/etc/config.ini --host $MOLOCH_HOSTNAME >> $MOLOCHDIR/logs/capture.log 2>&1
     fi
 fi
 
@@ -55,6 +55,6 @@ if [ "$VIEWER" = "on" ]
 then
     echo "Launch viewer..."
     pushd $MOLOCHDIR/viewer
-    exec $MOLOCHDIR/bin/node $MOLOCHDIR/viewer/viewer.js -c $MOLOCHDIR/etc/config.ini >> $MOLOCHDIR/logs/viewer.log 2>&1
+    exec $MOLOCHDIR/bin/node $MOLOCHDIR/viewer/viewer.js -c $MOLOCHDIR/etc/config.ini --host $MOLOCH_HOSTNAME >> $MOLOCHDIR/logs/viewer.log 2>&1
     popd
 fi
