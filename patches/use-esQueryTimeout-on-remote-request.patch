@@ -1,8 +1,8 @@
 diff --git a/viewer/viewer.js b/viewer/viewer.js
-index fb480e5..b1a09fb 100644
+index bb9e3dd..6f88294 100644
 --- a/viewer/viewer.js
 +++ b/viewer/viewer.js
-@@ -888,6 +888,8 @@
+@@ -899,6 +899,8 @@
      var info = url.parse(viewUrl);
      info.path = req.url;
      info.agent = (client === http?internals.httpAgent:internals.httpsAgent);
@@ -11,7 +11,7 @@ index fb480e5..b1a09fb 100644
      addAuth(info, req.user, req.params.nodeName);
      addCaTrust(info, req.params.nodeName);
  
-@@ -922,6 +924,8 @@
+@@ -933,6 +935,8 @@
      let info = url.parse(viewUrl);
      info.path = encodeURI(`${Config.basePath(node)}${path}`);
      info.agent = (client === http ? internals.httpAgent : internals.httpsAgent);
@@ -20,4 +20,3 @@ index fb480e5..b1a09fb 100644
      addAuth(info, user, node);
      addCaTrust(info, node);
      let preq = client.request(info, function (pres) {
-

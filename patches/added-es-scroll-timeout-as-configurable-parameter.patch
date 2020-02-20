@@ -1,8 +1,8 @@
 diff --git a/viewer/viewer.js b/viewer/viewer.js
-index fb480e56..44399ea4 100644
+index 416facf..b691b81 100644
 --- a/viewer/viewer.js
 +++ b/viewer/viewer.js
-@@ -68,6 +68,7 @@ var internals = {
+@@ -68,6 +68,7 @@
    CYBERCHEFVERSION: '9.11.7',
    elasticBase: Config.getArray('elasticsearch', ',', 'http://localhost:9200'),
    esQueryTimeout: Config.get("elasticsearchTimeout", 300) + 's',
@@ -10,7 +10,7 @@ index fb480e56..44399ea4 100644
    userNameHeader: Config.get("userNameHeader"),
    requiredAuthHeader: Config.get("requiredAuthHeader"),
    requiredAuthHeaderVal: Config.get("requiredAuthHeaderVal"),
-@@ -7110,7 +7111,7 @@ function runHuntJob (huntId, hunt, query, user) {
+@@ -7226,7 +7227,7 @@
    let options = buildHuntOptions(hunt);
    let searchedSessions;
  
@@ -19,7 +19,7 @@ index fb480e56..44399ea4 100644
      if (err || result.error) {
        pauseHuntJobWithError(huntId, hunt, { value: `Hunt error searching sessions: ${err}` });
        return;
-@@ -7173,7 +7174,7 @@ function runHuntJob (huntId, hunt, query, user) {
+@@ -7294,7 +7295,7 @@
  
        // There might be more, issue another scroll
        if (result.hits.hits.length !== 0) {
@@ -28,7 +28,7 @@ index fb480e56..44399ea4 100644
        }
  
        Db.clearScroll({ body: { scroll_id: result._scroll_id } });
-@@ -8633,7 +8634,7 @@ function processCronQuery(cq, options, query, endTime, cb) {
+@@ -8754,7 +8755,7 @@
        console.log("CRON", cq.name, cq.creator, "- start:", new Date(cq.lpValue*1000), "stop:", new Date(singleEndTime*1000), "end:", new Date(endTime*1000), "remaining runs:", ((endTime-singleEndTime)/(24*60*60.0)));
      }
  
@@ -37,7 +37,7 @@ index fb480e56..44399ea4 100644
        function doNext() {
          count += result.hits.hits.length;
  
-@@ -8650,7 +8651,7 @@ function processCronQuery(cq, options, query, endTime, cb) {
+@@ -8771,7 +8772,7 @@
            body: {
              scroll_id: result._scroll_id,
            },

@@ -1,8 +1,8 @@
 diff --git a/viewer/viewer.js b/viewer/viewer.js
-index fb480e56..f6f577fe 100644
+index b691b81..bb9e3dd 100644
 --- a/viewer/viewer.js
 +++ b/viewer/viewer.js
-@@ -7255,11 +7255,6 @@ function processHuntJob (huntId, hunt) {
+@@ -7377,11 +7377,6 @@
            return;
          }
  
