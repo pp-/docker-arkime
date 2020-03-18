@@ -1,4 +1,5 @@
-FROM mammo0/docker-moloch:latest
+ARG MOLOCH_IMAGE_VERSION=latest
+FROM mammo0/docker-moloch:$MOLOCH_IMAGE_VERSION
 MAINTAINER Mathieu Monin - https://github.com/mathiem
 
 # Install patch

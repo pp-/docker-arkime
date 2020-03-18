@@ -1,6 +1,6 @@
 #!/bin/bash
 
 # build the patched version
-docker build -f Dockerfile.patched -t $DOCKER_REPO:${DOCKER_TAG}_patched .
+docker build --file Dockerfile.patched --tag $DOCKER_REPO:${DOCKER_TAG}_patched --build-arg MOLOCH_IMAGE_VERSION=$DOCKER_TAG .
 # push it to the repository
 docker push $DOCKER_REPO:${DOCKER_TAG}_patched
