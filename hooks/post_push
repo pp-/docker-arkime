@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# test if there are patches
+if [ $(find patches/ -type f -name "*.patch" | wc -l) -eq 0 ]; then
+    # if not, exit here
+    exit 0
+fi
+
 # build the patched version
 docker build --file Dockerfile.patched --tag $DOCKER_REPO:${DOCKER_TAG}_patched --build-arg MOLOCH_IMAGE_VERSION=$DOCKER_TAG .
 # push it to the repository
