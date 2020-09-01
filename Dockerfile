@@ -1,6 +1,6 @@
 ARG UBUNTU_VERSION=20.04
 FROM ubuntu:$UBUNTU_VERSION
-MAINTAINER Mathieu Monin - https://github.com/mathiem
+MAINTAINER mammo0 - https://github.com/mammo0
 
 # Install dependencies that are needed, but not set in the moloch.deb file
 RUN apt-get -qq update && \
