@@ -1,4 +1,5 @@
-FROM ubuntu:18.04
+ARG UBUNTU_VERSION=20.04
+FROM ubuntu:$UBUNTU_VERSION
 MAINTAINER Mathieu Monin - https://github.com/mathiem
 
 # Install dependencies that are needed, but not set in the moloch.deb file
@@ -7,7 +8,7 @@ RUN apt-get -qq update && \
 
 # Declare args
 ARG MOLOCH_VERSION=2.4.0
-ARG UBUNTU_VERSION=18.04
+ARG UBUNTU_VERSION
 ARG MOLOCH_DEB_PACKAGE="moloch_"$MOLOCH_VERSION"-1_amd64.deb"
 
 # Declare envs vars for each arg
