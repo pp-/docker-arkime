@@ -48,7 +48,8 @@ These parameters are available:
 To import existing pcap files have a look at `scripts/moloch-parse-pcap-folder.sh` script. It can be run within the running container:
 
 ```shell
-docker exec -it <container_name> bash
-    # then in the container shell:
-    ~> /data/moloch-parse-pcap-folder.sh -d <directory_with_pcap_files> -t <tag>
+docker exec -it <container_name> \
+    /data/moloch-parse-pcap-folder.sh -d <directory_with_pcap_files> -t <tag>
 ```
+
+If parameter `-d` is omitted, the script asks if you want to import the default direcotry `/data/pcap`.
