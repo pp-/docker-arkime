@@ -1,12 +1,17 @@
 #!/bin/bash
 
 echo "Giving ES time to start..."
-until curl -sS "http://$ES_HOST:$ES_PORT/_cluster/health?wait_for_status=yellow"
+until curl -sS "http://$ES_HOST:$ES_PORT/_cluster/health?wait_for_status=yellow" > /dev/null 2>&1
 do
     echo "Waiting for ES to start"
     sleep 1
 done
 echo
+echo "ES started..."
+
+# set runtime environment variables
+export MOLOCH_LOCALELASTICSEARCH=no
+export MOLOCH_ELASTICSEARCH="http://"$ES_HOST":"$ES_PORT
 
 if [ ! -f $MOLOCHDIR/etc/.initialized ]; then
     echo $MOLOCH_VERSION > $MOLOCHDIR/etc/.initialized
