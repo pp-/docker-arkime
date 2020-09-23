@@ -6,7 +6,7 @@ This repository contains the files to build a Docker image of the Moloch softwar
 
 Ready to use Docker images can be pulled from https://hub.docker.com/r/mammo0/docker-moloch
 
-To run this image a working Elasticsearch environment is required. Please stick to their documentation for setting this up. (E.g. for docker: https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html)
+To run this image a **working Elasticsearch** environment is required. Please stick to their documentation for setting this up. (E.g. for docker: https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html)
 
 
 
@@ -44,7 +44,29 @@ These parameters are available:
 
 
 
-#### Import pcap files
+### Use `docker-compose`
+You can use `docker-compose` if you want to setup Elasticsearch together with Moloch in one step.
+
+#### Configuration
+1. Please have a look at the `.env` file **before** running `docker-compose up`. You may want to change some of the variables inside. Each variable is documented there.
+
+2. Please ensure you have done this step (otherwise Elasticsearch won't start): https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html
+
+#### Start
+Simply run
+```shell
+docker-compose up -d
+```
+*It can take some time until the Elasticsearch instances are fully started.*
+
+The Moloch instance can be accessed via
+
+http://localhost:8005
+
+*Assuming you don't changed the default port in the `.env` file.*
+
+
+### Import pcap files
 To import existing pcap files have a look at `scripts/moloch-parse-pcap-folder.sh` script. It can be run within the running container:
 
 ```shell
