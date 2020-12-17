@@ -26,7 +26,7 @@ ENV VIEWER "on"
 # Install Moloch
 RUN mkdir -p /data && \
     cd /data && \
-    curl -C - -O "https://files.molo.ch/builds/ubuntu-"$UBUNTU_VERSION"/"$MOLOCH_DEB_PACKAGE && \
+    curl -C - -O "https://s3.amazonaws.com/files.molo.ch/builds/ubuntu-"$UBUNTU_VERSION"/"$MOLOCH_DEB_PACKAGE && \
     dpkg -i $MOLOCH_DEB_PACKAGE || true && \
     apt-get install -yqf && \
     mv $MOLOCHDIR/etc /data/config && \
