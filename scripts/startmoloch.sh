@@ -15,7 +15,7 @@ export MOLOCH_ELASTICSEARCH="http://"$ES_HOST":"$ES_PORT
 
 if [ ! -f $MOLOCHDIR/etc/.initialized ]; then
     echo $MOLOCH_VERSION > $MOLOCHDIR/etc/.initialized
-    $MOLOCHDIR/bin/Configure
+    echo $MOLOCH_LOCALELASTICSEARCH | $MOLOCHDIR/bin/Configure
     echo INIT | $MOLOCHDIR/db/db.pl http://$ES_HOST:$ES_PORT init
     $MOLOCHDIR/bin/moloch_add_user.sh admin "Admin User" $MOLOCH_ADMIN_PASSWORD --admin
 else
@@ -27,7 +27,7 @@ else
     # otherwise -> upgrade
     if [ "$old_ver" != "$newer_ver" ]; then
         echo "Upgrading ES database..."
-        $MOLOCHDIR/bin/Configure
+        echo $MOLOCH_LOCALELASTICSEARCH | $MOLOCHDIR/bin/Configure
         echo UPGRADE | $MOLOCHDIR/db/db.pl http://$ES_HOST:$ES_PORT upgrade
         echo $MOLOCH_VERSION > $MOLOCHDIR/etc/.initialized
     fi
