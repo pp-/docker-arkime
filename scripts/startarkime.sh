@@ -14,10 +14,10 @@ export MOLOCH_LOCALELASTICSEARCH=no
 export MOLOCH_ELASTICSEARCH="http://"$ES_HOST":"$ES_PORT
 
 if [ ! -f $ARKIMEDIR/etc/.initialized ]; then
-    echo $ARKIME_VERSION > $ARKIMEDIR/etc/.initialized
     echo $MOLOCH_LOCALELASTICSEARCH | $ARKIMEDIR/bin/Configure
     echo INIT | $ARKIMEDIR/db/db.pl http://$ES_HOST:$ES_PORT init
     $ARKIMEDIR/bin/moloch_add_user.sh admin "Admin User" $ARKIME_ADMIN_PASSWORD --admin
+    echo $ARKIME_VERSION > $ARKIMEDIR/etc/.initialized
 else
     # possible update
     read old_ver < $ARKIMEDIR/etc/.initialized
