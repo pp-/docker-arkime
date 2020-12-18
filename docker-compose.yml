@@ -7,7 +7,7 @@ x-es_instance: &_es_instance
             soft: -1
             hard: -1
     networks:
-        - moloch-elastic
+        - arkime-elastic
 
 
 services:
@@ -18,7 +18,7 @@ services:
             - node.name=$ES_NODE1
             - discovery.seed_hosts=$ES_NODE2,$ES_NODE3
             # default
-            - cluster.name=es-moloch-cluster
+            - cluster.name=es-arkime-cluster
             - cluster.initial_master_nodes=$ES_NODE1,$ES_NODE2,$ES_NODE3
             - bootstrap.memory_lock=true
             - "ES_JAVA_OPTS=-Xms$ES_JAVA_MEM -Xmx$ES_JAVA_MEM"
@@ -31,7 +31,7 @@ services:
             - node.name=$ES_NODE2
             - discovery.seed_hosts=$ES_NODE1,$ES_NODE3
             # default
-            - cluster.name=es-moloch-cluster
+            - cluster.name=es-arkime-cluster
             - cluster.initial_master_nodes=$ES_NODE1,$ES_NODE2,$ES_NODE3
             - bootstrap.memory_lock=true
             - "ES_JAVA_OPTS=-Xms$ES_JAVA_MEM -Xmx$ES_JAVA_MEM"
@@ -44,14 +44,14 @@ services:
             - node.name=$ES_NODE3
             - discovery.seed_hosts=$ES_NODE1,$ES_NODE2
             # default
-            - cluster.name=es-moloch-cluster
+            - cluster.name=es-arkime-cluster
             - cluster.initial_master_nodes=$ES_NODE1,$ES_NODE2,$ES_NODE3
             - bootstrap.memory_lock=true
             - "ES_JAVA_OPTS=-Xms$ES_JAVA_MEM -Xmx$ES_JAVA_MEM"
         volumes:
             - $ES_DATA_DIR/$ES_NODE3:/usr/share/elasticsearch/data
 
-    moloch:
+    arkime:
         build:
             context: .
             dockerfile: Dockerfile
@@ -63,18 +63,18 @@ services:
             - ES_HOST=$ES_NODE1
             - ES_PORT=9200
         ports:
-            - $MOLOCH_PORT:8005
+            - $ARKIME_PORT:8005
         volumes:
-            - moloch_config:/data/config
-            - moloch_logs:/data/logs
+            - arkime_config:/data/config
+            - arkime_logs:/data/logs
             - $PCAP_DIR:/data/pcap
         networks:
-            - moloch-elastic
+            - arkime-elastic
 
 volumes:
-    moloch_config:
-    moloch_logs:
+    arkime_config:
+    arkime_logs:
 
 
 networks:
-    moloch-elastic:
+    arkime-elastic:

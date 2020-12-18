@@ -7,6 +7,6 @@ if [ $(find patches/ -type f -name "*.patch" | wc -l) -eq 0 ]; then
 fi
 
 # build the patched version
-docker build --file Dockerfile.patched --tag $DOCKER_REPO:${DOCKER_TAG}_patched --build-arg MOLOCH_IMAGE_VERSION=$DOCKER_TAG .
+docker build --file Dockerfile.patched --tag $DOCKER_REPO:${DOCKER_TAG}_patched --build-arg ARKIME_IMAGE_VERSION=$DOCKER_TAG .
 # push it to the repository
 docker push $DOCKER_REPO:${DOCKER_TAG}_patched

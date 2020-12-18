@@ -1,5 +1,5 @@
-ARG MOLOCH_IMAGE_VERSION=latest
-FROM mammo0/docker-moloch:$MOLOCH_IMAGE_VERSION
+ARG ARKIME_IMAGE_VERSION=latest
+FROM mammo0/docker-arkime:$ARKIME_IMAGE_VERSION
 MAINTAINER mammo0 - https://github.com/mammo0
 
 # Install patch
@@ -7,7 +7,7 @@ RUN apt-get -qq update && \
     apt-get install -yq patch
 
 # add patches (and apply them)
-ADD /patches $MOLOCHDIR/
+ADD /patches $ARKIMEDIR/
 RUN /data/apply_patches.sh && \
     apt-get purge -yq patch && \
     apt-get autoremove --purge -yq

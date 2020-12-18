@@ -7,35 +7,35 @@ RUN apt-get -qq update && \
     apt-get install -yq curl libmagic-dev wget logrotate
 
 # Declare args
-ARG MOLOCH_VERSION=2.4.2
+ARG ARKIME_VERSION=2.7.1
 ARG UBUNTU_VERSION
-ARG MOLOCH_DEB_PACKAGE="moloch_"$MOLOCH_VERSION"-1_amd64.deb"
+ARG ARKIME_DEB_PACKAGE="moloch_"$ARKIME_VERSION"-1_amd64.deb"
 
 # Declare envs vars for each arg
-ENV MOLOCH_VERSION $MOLOCH_VERSION
+ENV ARKIME_VERSION $ARKIME_VERSION
 ENV ES_HOST "elasticsearch"
 ENV ES_PORT 9200
 ENV MOLOCH_INTERFACE "eth0"
 ENV MOLOCH_PASSWORD "admin"
-ENV MOLOCH_ADMIN_PASSWORD $MOLOCH_PASSWORD
-ENV MOLOCH_HOSTNAME "localhost"
-ENV MOLOCHDIR "/data/moloch"
+ENV ARKIME_ADMIN_PASSWORD $MOLOCH_PASSWORD
+ENV ARKIME_HOSTNAME "localhost"
+ENV ARKIMEDIR "/data/moloch"
 ENV CAPTURE "off"
 ENV VIEWER "on"
 
-# Install Moloch
+# Install Arkime
 RUN mkdir -p /data && \
     cd /data && \
-    curl -C - -O "https://s3.amazonaws.com/files.molo.ch/builds/ubuntu-"$UBUNTU_VERSION"/"$MOLOCH_DEB_PACKAGE && \
-    dpkg -i $MOLOCH_DEB_PACKAGE || true && \
+    curl -C - -O "https://s3.amazonaws.com/files.molo.ch/builds/ubuntu-"$UBUNTU_VERSION"/"$ARKIME_DEB_PACKAGE && \
+    dpkg -i $ARKIME_DEB_PACKAGE || true && \
     apt-get install -yqf && \
-    mv $MOLOCHDIR/etc /data/config && \
-    ln -s /data/config $MOLOCHDIR/etc && \
-    ln -s /data/logs $MOLOCHDIR/logs && \
-    ln -s /data/pcap $MOLOCHDIR/raw
+    mv $ARKIMEDIR/etc /data/config && \
+    ln -s /data/config $ARKIMEDIR/etc && \
+    ln -s /data/logs $ARKIMEDIR/logs && \
+    ln -s /data/pcap $ARKIMEDIR/raw
 # clean up
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* && \
-    rm /data/$MOLOCH_DEB_PACKAGE
+    rm /data/$ARKIME_DEB_PACKAGE
 
 # add scripts
 ADD /scripts /data/
@@ -43,6 +43,6 @@ RUN chmod 755 /data/*.sh
 
 VOLUME ["/data/pcap", "/data/config", "/data/logs"]
 EXPOSE 8005
-WORKDIR $MOLOCHDIR
+WORKDIR $ARKIMEDIR
 
-ENTRYPOINT ["/data/startmoloch.sh"]
+ENTRYPOINT ["/data/startarkime.sh"]
