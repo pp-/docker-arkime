@@ -52,6 +52,8 @@ You can use `docker-compose` if you want to setup Elasticsearch together with Ar
 
 2. Please ensure you have done this step (otherwise Elasticsearch won't start): https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html
 
+3. Run `chmod -R 777 es_data` **OR** `chown -R 1000:1000 es_data`. This is needed for the Elasticsearch containers to be able to write to that direcotry.
+
 #### Start
 Simply run
 ```shell
