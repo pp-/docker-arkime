@@ -10,6 +10,7 @@ echo
 echo "ES started..."
 
 # set runtime environment variables
+export ARKIME_PASSWORD=$(tr -cd '[:alnum:]' < /dev/urandom | fold -w32 | head -n1)  # random password
 export ARKIME_LOCALELASTICSEARCH=no
 export ARKIME_ELASTICSEARCH="http://"$ES_HOST":"$ES_PORT
 

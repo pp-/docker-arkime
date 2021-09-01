@@ -30,7 +30,7 @@ These parameters are available:
 | - | - | - |
 | ES_HOST | elasticsearch | The hostname or IP address where Elasticsearch is running.  |
 | ES_PORT | 9200 | The port where Elasticsearch is reachable. |
-| ARKIME_PASSWORD | admin | This is the password for the Arkime admin user that is needed for the first login. It can be changed afterwards. |
+| ARKIME_ADMIN_PASSWORD | admin | This is the password for the Arkime admin user that is needed for the first login. It can be changed afterwards. |
 | ARKIME_INTERFACE | eth0 | Network interface where `capture` process listens. **This feature is not tested yet!** |
 | ARKIME_HOSTNAME | localhost | With this hostname Arkime authenticates at Elasticsearch. So if you change this you'll lose your Elasticsearch configuration. |
 | CAPTURE | off | Set to "on" to activate the `capture` process. **This feature is not tested yet!** |
