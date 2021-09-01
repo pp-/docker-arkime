@@ -10,13 +10,13 @@ echo
 echo "ES started..."
 
 # set runtime environment variables
-export MOLOCH_LOCALELASTICSEARCH=no
-export MOLOCH_ELASTICSEARCH="http://"$ES_HOST":"$ES_PORT
+export ARKIME_LOCALELASTICSEARCH=no
+export ARKIME_ELASTICSEARCH="http://"$ES_HOST":"$ES_PORT
 
 if [ ! -f $ARKIMEDIR/etc/.initialized ]; then
-    echo $MOLOCH_LOCALELASTICSEARCH | $ARKIMEDIR/bin/Configure
+    echo $ARKIME_LOCALELASTICSEARCH | $ARKIMEDIR/bin/Configure
     echo INIT | $ARKIMEDIR/db/db.pl http://$ES_HOST:$ES_PORT init
-    $ARKIMEDIR/bin/moloch_add_user.sh admin "Admin User" $ARKIME_ADMIN_PASSWORD --admin
+    $ARKIMEDIR/bin/arkime_add_user.sh admin "Admin User" $ARKIME_ADMIN_PASSWORD --admin
     echo $ARKIME_VERSION > $ARKIMEDIR/etc/.initialized
 else
     # possible update
@@ -27,7 +27,7 @@ else
     # otherwise -> upgrade
     if [ "$old_ver" != "$newer_ver" ]; then
         echo "Upgrading ES database..."
-        echo $MOLOCH_LOCALELASTICSEARCH | $ARKIMEDIR/bin/Configure
+        echo $ARKIME_LOCALELASTICSEARCH | $ARKIMEDIR/bin/Configure
         echo UPGRADE | $ARKIMEDIR/db/db.pl http://$ES_HOST:$ES_PORT upgrade
         echo $ARKIME_VERSION > $ARKIMEDIR/etc/.initialized
     fi
@@ -42,16 +42,16 @@ then
     if [ "$VIEWER" = "on" ]
     then
         # Background execution
-        exec $ARKIMEDIR/bin/moloch-capture --config $ARKIMEDIR/etc/config.ini --host $ARKIME_HOSTNAME >> $ARKIMEDIR/logs/capture.log 2>&1 &
+        exec $ARKIMEDIR/bin/capture --config $ARKIMEDIR/etc/config.ini --host $ARKIME_HOSTNAME >> $ARKIMEDIR/logs/capture.log 2>&1 &
     else
         # If only capture, foreground execution
-        exec $ARKIMEDIR/bin/moloch-capture --config $ARKIMEDIR/etc/config.ini --host $ARKIME_HOSTNAME >> $ARKIMEDIR/logs/capture.log 2>&1
+        exec $ARKIMEDIR/bin/capture --config $ARKIMEDIR/etc/config.ini --host $ARKIME_HOSTNAME >> $ARKIMEDIR/logs/capture.log 2>&1
     fi
 fi
 
 echo "Look at log files for errors"
-echo "  /data/moloch/logs/viewer.log"
-echo "  /data/moloch/logs/capture.log"
+echo "  /data/logs/viewer.log"
+echo "  /data/logs/capture.log"
 echo "Visit http://127.0.0.1:8005 with your favorite browser."
 echo "  user: admin"
 echo "  password: $ARKIME_ADMIN_PASSWORD"

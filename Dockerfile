@@ -2,24 +2,24 @@ ARG UBUNTU_VERSION=20.04
 FROM ubuntu:$UBUNTU_VERSION
 MAINTAINER mammo0 - https://github.com/mammo0
 
-# Install dependencies that are needed, but not set in the moloch.deb file
+# Install dependencies that are needed, but not set in the arkime.deb file
 RUN apt-get -qq update && \
     apt-get install -yq curl libmagic-dev wget logrotate
 
 # Declare args
-ARG ARKIME_VERSION=2.7.1
+ARG ARKIME_VERSION=3.0.0
 ARG UBUNTU_VERSION
-ARG ARKIME_DEB_PACKAGE="moloch_"$ARKIME_VERSION"-1_amd64.deb"
+ARG ARKIME_DEB_PACKAGE="arkime_"$ARKIME_VERSION"-1_amd64.deb"
 
 # Declare envs vars for each arg
 ENV ARKIME_VERSION $ARKIME_VERSION
 ENV ES_HOST "elasticsearch"
 ENV ES_PORT 9200
-ENV MOLOCH_INTERFACE "eth0"
-ENV MOLOCH_PASSWORD "admin"
-ENV ARKIME_ADMIN_PASSWORD $MOLOCH_PASSWORD
+ENV ARKIME_INTERFACE "eth0"
+ENV ARKIME_PASSWORD "admin"
+ENV ARKIME_ADMIN_PASSWORD $ARKIME_PASSWORD
 ENV ARKIME_HOSTNAME "localhost"
-ENV ARKIMEDIR "/data/moloch"
+ENV ARKIMEDIR "/opt/arkime"
 ENV CAPTURE "off"
 ENV VIEWER "on"
 
