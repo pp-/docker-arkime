@@ -1,0 +1,10 @@
+# the docker-compose environment file
+/.env
+
+# the following files and directories are not needed for building the image
+/.*
+/es_data
+/pcaps
+/docker-compose.*
+/LICENSE
+/README.md
