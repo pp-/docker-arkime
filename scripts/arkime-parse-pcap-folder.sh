@@ -66,7 +66,7 @@ fi
 
 
 # check if there are *.pcap[0-9]+ files
-# these files will not be processed by moloch-capture -R
+# these files will not be processed by capture -R
 # so rename them
 pcap_part_regex="(.*)\.pcap([0-9]+)"
 
@@ -92,7 +92,7 @@ tags_cmd="${tags_cmd## }"
 
 
 # the command string
-CMD_STRING="$ARKIMEDIR/bin/moloch-capture --config $ARKIMEDIR/etc/config.ini --host $ARKIME_HOSTNAME --pcapdir $PCAPDIR --skip --recursive $tags_cmd"
+CMD_STRING="$ARKIMEDIR/bin/capture --config $ARKIMEDIR/etc/config.ini --host $ARKIME_HOSTNAME --pcapdir $PCAPDIR --skip --recursive $tags_cmd"
 
 # execute the command
 eval $CMD_STRING
