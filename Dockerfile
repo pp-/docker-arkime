@@ -7,7 +7,7 @@ RUN apt-get -qq update && \
     apt-get install -yq curl libmagic-dev wget logrotate
 
 # Declare args
-ARG ARKIME_VERSION=3.3.0
+ARG ARKIME_VERSION=3.3.1
 ARG UBUNTU_VERSION
 ARG ARKIME_DEB_PACKAGE="arkime_"$ARKIME_VERSION"-1_amd64.deb"
 
