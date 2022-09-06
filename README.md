@@ -48,11 +48,10 @@ These parameters are available:
 You can use `docker-compose` if you want to setup Elasticsearch together with Arkime in one step.
 
 #### Configuration
-1. Please copy or rename the file `docker-compose.env` to `.env` **before** running `docker-compose up`. You may want to change some of the variables inside. Each variable is documented there.
 
-2. Please ensure you have done this step (otherwise Elasticsearch won't start): https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html
+1. Please ensure you have done this step (otherwise Elasticsearch won't start): https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html
 
-3. Run `chmod -R 777 es_data` **OR** `chown -R 1000:1000 es_data`. This is needed for the Elasticsearch containers to be able to write to that direcotry.
+2. Run `chmod -R 777 es_data` **OR** `chown -R 1000:1000 es_data`. This is needed for the Elasticsearch containers to be able to write to that direcotry.
 
 #### Start
 Simply run
