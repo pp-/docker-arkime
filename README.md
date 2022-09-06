@@ -56,7 +56,7 @@ You can use `docker-compose` if you want to setup Elasticsearch together with Ar
 #### Start
 Simply run
 ```shell
-docker-compose up -d
+docker-compose up
 ```
 *It can take some time until the Elasticsearch instances are fully started.*
 
