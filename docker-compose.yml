@@ -20,46 +20,17 @@ services:
         container_name: $ES_NODE1
         environment:
             - node.name=$ES_NODE1
-            - discovery.seed_hosts=$ES_NODE2,$ES_NODE3
-            # default
+            - discovery.type=single-node
             - cluster.name=es-arkime-cluster
-            - cluster.initial_master_nodes=$ES_NODE1,$ES_NODE2,$ES_NODE3
             - bootstrap.memory_lock=true
         volumes:
             - $ES_DATA_DIR/$ES_NODE1:/usr/share/elasticsearch/data
-    es02:
-        <<: *_es_instance
-        container_name: $ES_NODE2
-        environment:
-            - node.name=$ES_NODE2
-            - discovery.seed_hosts=$ES_NODE1,$ES_NODE3
-            # default
-            - cluster.name=es-arkime-cluster
-            - cluster.initial_master_nodes=$ES_NODE1,$ES_NODE2,$ES_NODE3
-            - bootstrap.memory_lock=true
-        volumes:
-            - $ES_DATA_DIR/$ES_NODE2:/usr/share/elasticsearch/data
-    es03:
-        <<: *_es_instance
-        container_name: $ES_NODE3
-        environment:
-            - node.name=$ES_NODE3
-            - discovery.seed_hosts=$ES_NODE1,$ES_NODE2
-            # default
-            - cluster.name=es-arkime-cluster
-            - cluster.initial_master_nodes=$ES_NODE1,$ES_NODE2,$ES_NODE3
-            - bootstrap.memory_lock=true
-        volumes:
-            - $ES_DATA_DIR/$ES_NODE3:/usr/share/elasticsearch/data
-
     arkime:
         build:
             context: .
             dockerfile: Dockerfile
         depends_on:
             - $ES_NODE1
-            - $ES_NODE2
-            - $ES_NODE3
         environment:
             - ES_HOST=$ES_NODE1
             - ES_PORT=9200
